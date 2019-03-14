@@ -38,7 +38,7 @@ class AuthorsList extends Component {
         <h3>Authors</h3>
         <SearchBar onChange={this.setQuery} />
         <div className="row">
-          <AddAuthorCard />
+          {this.props.user && <AddAuthorCard />}
           {authorCards}
         </div>
       </div>
@@ -46,7 +46,8 @@ class AuthorsList extends Component {
   }
 }
 
-const mapStateToProps = ({ authors }) => ({
+const mapStateToProps = ({ user, authors }) => ({
+  user,
   authors,
   loading: !authors.length
 });
