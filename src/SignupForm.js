@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 // Actions
-import * as actionCreators from "./store/actions";
+import { signup } from "./redux/actions";
 
 class Signup extends Component {
   state = {
@@ -81,12 +81,8 @@ class Signup extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signup: (userData, history) =>
-      dispatch(actionCreators.signup(userData, history))
+    signup: (userData, history) => dispatch(signup(userData, history))
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(Signup);
+export default connect(null, mapDispatchToProps)(Signup);

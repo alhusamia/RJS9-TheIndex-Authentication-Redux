@@ -3,7 +3,8 @@ import { NavLink, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 //Actions
-import * as actionCreators from "./store/actions";
+import { logout } from "./redux/actions";
+
 // Logo
 import logo from "./assets/theindex.svg";
 
@@ -40,7 +41,7 @@ const mapStateToProps = ({ user }) => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(actionCreators.logout())
+    logout: () => dispatch(logout())
   };
 };
 
