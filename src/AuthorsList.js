@@ -24,7 +24,7 @@ class AuthorsList extends Component {
   };
 
   render() {
-    if (!this.props.laoding) return <Loading />;
+    if (this.props.loading) return <Loading />;
 
     const authorCards = this.filterAuthors().map(author => (
       <AuthorCard
