@@ -1,8 +1,6 @@
 import {} from "../actions/actionTypes";
 
-const initialState = {
-  // complete me
-};
+const initialState = null;
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

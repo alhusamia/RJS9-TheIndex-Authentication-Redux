@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import AddAuthorCard from "./AddAuthorCard";
 import AuthorCard from "./AuthorCard";
 import SearchBar from "./SearchBar";
+import Loading from "./Loading";
 
 class AuthorsList extends Component {
   state = {
@@ -23,8 +24,13 @@ class AuthorsList extends Component {
   };
 
   render() {
+    if (!this.props.laoding) return <Loading />;
+
     const authorCards = this.filterAuthors().map(author => (
-      <AuthorCard key={author.id} author={author} />
+      <AuthorCard
+        key={author.id + author.first_name + author.last_name}
+        author={author}
+      />
     ));
 
     return (
@@ -40,10 +46,9 @@ class AuthorsList extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    authors: state.rootAuthors.authors
-  };
-};
+const mapStateToProps = ({ authors }) => ({
+  authors,
+  loading: !authors.length
+});
 
 export default connect(mapStateToProps)(AuthorsList);

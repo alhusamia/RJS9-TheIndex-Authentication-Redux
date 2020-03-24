@@ -3,12 +3,12 @@ import { combineReducers } from "redux";
 // Reducers
 import authorsReducer from "./authors";
 import booksReducer from "./books";
-import authReducer from "./authentication";
+import userReducer from "./user";
 
 const rootReducer = combineReducers({
-  rootAuthors: authorsReducer,
-  rootBooks: booksReducer,
-  user: authReducer
+  authors: authorsReducer,
+  books: booksReducer,
+  user: userReducer
 });
 
 export default rootReducer;

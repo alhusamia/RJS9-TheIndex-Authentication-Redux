@@ -16,10 +16,25 @@ class BookForm extends Component {
 
   onSubmit = event => {
     event.preventDefault();
-    this.props.postBook(this.state);
+    this.props.postBook(this.state, this.props.closeModal);
   };
 
   render() {
+    const colorOptions = [
+      "white",
+      "red",
+      "blue",
+      "green",
+      "yellow",
+      "black",
+      "grey",
+      "purple"
+    ].map(color => (
+      <option key={color} value={color}>
+        {color}
+      </option>
+    ));
+
     return (
       <div className="mt-5 p-2">
         <form onSubmit={this.onSubmit}>
@@ -44,14 +59,7 @@ class BookForm extends Component {
               onChange={this.onTextChange}
             >
               <option value="">----</option>
-              <option value="white">White</option>
-              <option value="red">Red</option>
-              <option value="blue">Blue</option>
-              <option value="green">Green</option>
-              <option value="yellow">Yellow</option>
-              <option value="black">Black</option>
-              <option value="grey">Grey</option>
-              <option value="purple">Purple</option>
+              {colorOptions}
             </select>
           </div>
           <input type="submit" value="Add Book" />
@@ -61,19 +69,10 @@ class BookForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    authors: state.authors
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
-    postBook: (book, authorID) => dispatch(postBook(book, authorID))
+    postBook: (book, closeModal) => dispatch(postBook(book, closeModal))
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BookForm);
+export default connect(null, mapDispatchToProps)(BookForm);

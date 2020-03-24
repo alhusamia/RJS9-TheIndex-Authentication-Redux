@@ -4,17 +4,20 @@ import { connect } from "react-redux";
 
 // Components
 import BookTable from "./BookTable";
-import AddBookModal from "./AddBookModal";
+import AddBookModal from "./AddBookButton";
+import Loading from "./Loading";
 
-function AuthorDetail({ authors, books, match }) {
+const AuthorDetail = ({ authors, books, loading, match }) => {
+  if (loading) return <Loading />;
+
   const { authorID } = match.params;
   const author = authors.find(author => author.id === +authorID);
 
   if (!author) return <Redirect to="/" />;
 
   const authorName = `${author.first_name} ${author.last_name}`;
-  const authorBooks = author.books.map(bookID =>
-    books.find(book => book.id === bookID)
+  const authorBooks = books.filter(book =>
+    book.authors.map(author => author.id).includes(author.id)
   );
 
   return (
@@ -31,12 +34,13 @@ function AuthorDetail({ authors, books, match }) {
       <AddBookModal authorID={author.id} />
     </div>
   );
-}
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ authors, books }) => {
   return {
-    authors: state.rootAuthors.authors,
-    books: state.rootBooks.books
+    authors,
+    books,
+    loading: !authors.length || !books.length
   };
 };
 
