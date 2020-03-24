@@ -1,6 +1,6 @@
 import {} from "./actionTypes";
 
-import instsance from "./instance";
+import instance from "./instance";
 
 export const login = () => {};
 
