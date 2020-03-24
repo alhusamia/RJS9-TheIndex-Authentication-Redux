@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux'
+import { login } from "./redux/actions";
+import {  Redirect } from "react-router-dom";
+
+
 
 class Login extends Component {
   state = {
@@ -12,12 +17,13 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    alert("I DON'T WORK YET");
+    this.props.login(this.state);
+    
   };
 
   render() {
     const { username, password } = this.state;
-
+    if (this.props.user) return <Redirect to="/authors" />;
     return (
       <div className="col-6 mx-auto">
         <div className="card my-5">
@@ -62,4 +68,11 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = ({user}) => ({
+  user
+});
+
+const mapDispatchToProps = dispatch => ({
+  login: userData => dispatch(login(userData))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

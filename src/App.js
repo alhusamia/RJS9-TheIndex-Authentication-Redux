@@ -20,6 +20,7 @@ const App = () => (
           <Route path="/authors" component={AuthorsList} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
+
           <Redirect to="/authors" />
         </Switch>
       </div>

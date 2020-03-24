@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import {  Redirect } from "react-router-dom";
 
 // Actions
 import { postAuthor } from "./redux/actions";
@@ -21,7 +22,9 @@ class AuthorForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
 
   render() {
+    if (!this.props.user) return <Redirect to="/login" />;
     return (
+      
       <div className="mt-5 p-2">
         <form onSubmit={this.submitAuthor}>
           <div className="input-group mb-3">
@@ -65,6 +68,9 @@ class AuthorForm extends Component {
     );
   }
 }
+const mapStateToProps = ({user}) => ({
+  user
+});
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -73,4 +79,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(AuthorForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorForm);
